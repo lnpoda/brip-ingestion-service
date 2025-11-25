@@ -1,0 +1,8 @@
+name: brip-workflow
+on: push
+jobs:
+  repo-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "repository checkout complete"
