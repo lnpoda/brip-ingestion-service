@@ -1,0 +1,20 @@
+{
+    "name": "AccountDebitPostedEvent",
+    "namespace" : "com.poda.corebanking.schema",
+    "type" : "record",
+    "doc" : "Schema for a debit event in a bank account",
+    "fields" : [
+        {"name" : "postingId", "type" : "string", "doc" : "unique ledger posting ID"},
+        {"name" : "accountId", "type" : "string", "doc" : "Id of the bank account debited"},
+        {"name" : "amount", "type" : {"type" : "bytes", "logicalType" : "decimal", "precision" : 20, "scale" : 2}, "doc" : "amount debited from the account"},
+        {"name" : "currency", "type" : "string", "doc" : "currency of the transaction"},
+        {"name" : "postingTimestamp", "type" : {"type" : "long", "logicalType" : "timestamp-millis"}, "doc" : "when the ledger applied the posting"},
+        {"name" : "valueTimestamp", "type" : {"type" : "long", "logicalType" : "timestamp-millis"}, "doc" : "date of interest / settlement"},
+        {"name" : "transactionCode", "type" : "string", "default" : "", "doc" : "internal code describing posting type"},
+        {"name" : "narrative", "type" : ["null", "string"], "default" : null, "doc" : "human-readable description of the transaction"},
+        {"name" : "balanceAfterPosting", "type" : ["null", {"type" : "bytes", "logicalType" : "decimal", "precision" : 20, "scale" : 2}], "default" : null, "doc" : "balance afte the transaction"},
+        {"name" : "counterpartyAccountId", "type" : ["null", "string"], "default" : null, "doc" : "Id of the other account involved in the transaction"},
+        {"name" : "channel", "type" : "string", "doc" : "Medium through which the transaction occurred - allowed values: ATM, ACH, BRANCH, CARD, ONLINE, OTHER" },
+        {"name" : "rawPayload", "type" : "bytes", "doc" : "original event payload for audit"}
+    ]
+}

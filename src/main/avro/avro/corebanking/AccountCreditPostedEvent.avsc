@@ -1,0 +1,91 @@
+{
+  "name": "AccountCreditPostedEvent",
+  "namespace": "com.poda.corebanking.schema",
+  "type": "record",
+  "doc": "Schema for a credit event in a bank account",
+  "fields": [
+    {
+      "name": "postingId",
+      "type": "string",
+      "doc": "Unique ledger posting ID"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "ID of the bank account credited"
+    },
+    {
+      "name": "amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 20,
+        "scale": 2
+      },
+      "doc": "Amount credited to the account"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "ISO currency code"
+    },
+    {
+      "name": "postingTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "When the ledger applied the posting"
+    },
+    {
+      "name": "valueTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Value date for interest/settlement"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "default": "",
+      "doc": "Internal code describing posting type"
+    },
+    {
+      "name": "narrative",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable description of the transaction"
+    },
+    {
+      "name": "balanceAfterPosting",
+      "type": [
+        "null",
+        {
+          "type": "bytes",
+          "logicalType": "decimal",
+          "precision": 20,
+          "scale": 2
+        }
+      ],
+      "default": null,
+      "doc": "Balance after the transaction"
+    },
+    {
+      "name": "counterpartyAccountId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ID of the other account involved in the transaction"
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "doc": "Medium through which the transaction occurred - allowed values: ATM, ACH, BRANCH, CARD, ONLINE, OTHER"
+    },
+    {
+      "name": "rawPayload",
+      "type": "bytes",
+      "doc": "Original event payload for audit"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+# --- BRIP ingestion artifacts ---
+brip-ingestion/generated/
+brip-ingestion/output/
+brip-ingestion/tmp/
+schemas/.cache/
+schemas/.tmp/
+schemas/.local/
+
+# --- Secrets ---
+.env
+.env.*
+secrets/
+*.key
+*.pem
+*.crt
+
+# --- Postgres ---
+pgdata/
+*.sql.tmp
+*.dump
+*.backup
+
+# --- Python ---
+__pycache__/
+*.pyc
+venv/
+.envrc
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Build outputs ---
+dist/
+build/
+coverage/
+
+# Gradle build outputs
+/build/
+/out/
+/*.bin
+/*.idx
+/*.class
+/*.html
+
+
+# --- Logs ---
+logs/
+*.log
+*.log.*
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

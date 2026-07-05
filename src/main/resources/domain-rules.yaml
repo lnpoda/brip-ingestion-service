@@ -1,0 +1,68 @@
+domain-rules:
+
+  # ---------------------------------------------------------
+  # Timestamp rules
+  # ---------------------------------------------------------
+  timestamp:
+    max-age-days: 30          # Reject transactions older than 30 days
+    allow-future-seconds: 0   # Reject future-dated transactions
+
+  # ---------------------------------------------------------
+  # Idempotency / duplicate detection rules
+  # ---------------------------------------------------------
+  idempotency:
+    enabled: true
+    lookback-hours: 24        # Check duplicates within last 24 hours
+
+  # ---------------------------------------------------------
+  # Cross-field validation rules
+  # ---------------------------------------------------------
+  cross-field:
+    require-atm-metadata-for-withdrawal: true
+    require-transfer-metadata: true
+
+  # ---------------------------------------------------------
+  # State-based rules
+  # ---------------------------------------------------------
+  state:
+    reject-settled-replays: true
+    reject-cancelled-replays: true
+
+  # ---------------------------------------------------------
+  # Business-unit specific rules
+  # ---------------------------------------------------------
+  business-units:
+
+    atm:
+      withdrawal-limit: 5000
+      require-location: true
+      require-terminal-id: true
+
+    corebanking:
+      max-transfer-amount: 25000
+      require-customer-profile: true
+
+    mobile:
+      max-mobile-transfer: 10000
+      require-device-id: true
+
+  # ---------------------------------------------------------
+  # AML / fraud lightweight rules
+  # ---------------------------------------------------------
+  aml:
+    blacklist-sources:
+      - "fraud-system"
+      - "legacy-feed"
+    max-high-risk-amount: 15000
+    high-risk-categories:
+      - "GAMBLING"
+      - "CRYPTO"
+      - "FOREX"
+
+  # ---------------------------------------------------------
+  # Rule toggles (feature flags)
+  # ---------------------------------------------------------
+  toggles:
+    enable-cross-field-rules: true
+    enable-aml-rules: true
+    enable-business-unit-rules: true

@@ -1,0 +1,88 @@
+
+spring:
+  config:
+    activate:
+      on-cloud-platform: kubernetes
+    import:
+      - optional:aws-parameterstore:/brip/ingestion-service/dev
+      - optional:aws-secretsmanager:/brip/ingestion-service/dev
+---
+server:
+  port: "1010"
+
+
+spring:
+  config:
+    import:
+      - "classpath:domain-rules.yaml"
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+  h2:
+    console:
+      enabled: true
+      path: "/h2-console"
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:7092,localhost:8094,localhost:9092
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      properties:
+        #        specific:
+        #          avro:
+        #            reader: false
+        schema:
+          registry:
+            url: "http://localhost:8081"
+    consumer:
+      bootstrap-servers: localhost:7092,localhost:8094,localhost:9092
+      key-serializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-serializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      group-id: "brip-ingestion-cg"
+      properties:
+        specific:
+          avro:
+            reader: false
+        schema:
+          registry:
+            url: "http://localhost:8081"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  info:
+    application:
+      name: brip-ingestion-service
+      port: 1010
+      description: ingest rawEvent transaction data
+    java:
+      version: ${java.version:unknown}
+      vendor: ${java.vendor:unknown}
+
+upstream:
+  atm:
+    topic: "atm-events"
+    concurrency: 2
+  corebanking:
+    topic: "corebanking-events"
+    concurrency: 2

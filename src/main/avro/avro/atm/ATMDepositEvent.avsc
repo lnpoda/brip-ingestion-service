@@ -1,0 +1,89 @@
+{
+  "name": "ATMDepositEvent",
+  "namespace": "com.poda.atm.schema",
+  "type": "record",
+  "doc": "Schema for a deposit event in an ATM",
+  "fields": [
+    {
+      "name": "atmTransactionId",
+      "type": "string",
+      "doc": "Unique ID to identify an ATM transaction"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Unique ID to identify the account receiving the deposit"
+    },
+    {
+      "name": "amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 20,
+        "scale": 2
+      },
+      "doc": "Amount deposited"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "ISO code of the currency in transaction"
+    },
+    {
+      "name": "atmId",
+      "type": "string",
+      "doc": "Unique ID to identify an ATM"
+    },
+    {
+      "name": "location",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable location"
+    },
+    {
+      "name": "cardNumberMasked",
+      "type": "string",
+      "doc": "Last 4 digits of the card number"
+    },
+    {
+      "name": "responseCode",
+      "type": "string",
+      "doc": "ISO 8583 code of the ATM's response for the transaction. Allowed values - 00, 01"
+    },
+    {
+      "name": "network",
+      "type": "string",
+      "doc": "ATM network used"
+    },
+    {
+      "name": "depositType",
+      "type": "string",
+      "doc": "Type of deposit - allowed values: CASH, CHECK, MIXED"
+    },
+    {
+      "name": "envelopeId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Envelope or image ID for check deposits"
+    },
+    {
+      "name": "feeAmount",
+      "type": [
+        "null",
+        {
+          "type": "bytes",
+          "logicalType": "decimal",
+          "precision": 20,
+          "scale": 2
+        }
+      ],
+      "default": null,
+      "doc": "Additional fees applied on the transaction"
+    },
+    {
+      "name": "rawPayload",
+      "type": "bytes",
+      "doc": "Original event payload"
+    }
+  ]
+}
