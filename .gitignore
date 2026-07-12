@@ -38,6 +38,7 @@ build/
 coverage/
 
 # Gradle build outputs
+.gradle/
 /build/
 /out/
 /*.bin

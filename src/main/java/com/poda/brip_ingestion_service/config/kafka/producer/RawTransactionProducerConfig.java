@@ -1,6 +1,6 @@
 package com.poda.brip_ingestion_service.config.kafka.producer;
 
-import com.poda.brip_ingestion_service.events.RawTransactionIngestionEvent;
+import com.poda.brip_ingestion_service.events.RawTransactionIngestionDomainEvent;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,15 +21,15 @@ public class RawTransactionProducerConfig {
     }
 
     @Bean(name = "rawTransactionProducerFactory")
-    public ProducerFactory<String, RawTransactionIngestionEvent> producerFactory() {
+    public ProducerFactory<String, RawTransactionIngestionDomainEvent> producerFactory() {
         Map<String, Object> config = kafkaProperties.buildProducerProperties();
         return new DefaultKafkaProducerFactory<>(config);
     }
 
     @Bean(name = "rawTransactionKafkaTemplate")
-    public KafkaTemplate<String, RawTransactionIngestionEvent> kafkaTemplate(
+    public KafkaTemplate<String, RawTransactionIngestionDomainEvent> kafkaTemplate(
             @Qualifier("rawTransactionProducerFactory")
-            ProducerFactory<String, RawTransactionIngestionEvent> producerFactory) {
+            ProducerFactory<String, RawTransactionIngestionDomainEvent> producerFactory) {
 
         return new KafkaTemplate<>(producerFactory);
     }
