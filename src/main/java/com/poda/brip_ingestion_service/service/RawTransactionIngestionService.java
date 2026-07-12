@@ -1,11 +1,12 @@
 package com.poda.brip_ingestion_service.service;
 
-import com.poda.brip_ingestion_service.events.RawTransactionIngestionEvent;
+import com.poda.brip_ingestion_service.events.RawTransactionIngestionDomainEvent;
 import com.poda.brip_ingestion_service.exception.domain.rules.DomainRuleViolationException;
 import com.poda.brip_ingestion_service.kafka.producer.DomainRuleDlqProducer;
 import com.poda.brip_ingestion_service.kafka.producer.RawTransactionIngestionEventProducer;
 import com.poda.brip_ingestion_service.mapper.RawTransactionDomainDlqEventMapper;
-import com.poda.brip_ingestion_service.mapper.event.RawTransactionIngestionEventMapper;
+import com.poda.brip_ingestion_service.mapper.event.RawTransactionIngestionDomainEventMapper;
+import com.poda.brip_ingestion_service.mapper.event.downstream.RawTransactionIngestionEventAvroMapper;
 import com.poda.brip_ingestion_service.mapper.model.RawTransactionMapper;
 import com.poda.brip_ingestion_service.model.RawTransaction;
 import com.poda.brip_ingestion_service.model.dlq.RawTransactionDomainDlqEvent;
@@ -60,9 +61,9 @@ public class RawTransactionIngestionService {
 
         log.info("rawTransaction: {}", rawTransaction);
         // reuse the rawTransactionEntity saved to db, to create event and publish to kafka
-        RawTransactionIngestionEvent rawTransactionIngestionEvent = RawTransactionIngestionEventMapper
+        RawTransactionIngestionDomainEvent rawTransactionIngestionDomainEvent = RawTransactionIngestionDomainEventMapper
                 .entityToEvent(rawTransactionEntity);
-        rawTransactionIngestionEventProducer.publish(rawTransactionIngestionEvent)
+        rawTransactionIngestionEventProducer.publish(RawTransactionIngestionEventAvroMapper.toAvro(rawTransactionIngestionDomainEvent))
                 .whenComplete((result, error) -> {
                     if (error != null) {
                         log.error(error.toString());

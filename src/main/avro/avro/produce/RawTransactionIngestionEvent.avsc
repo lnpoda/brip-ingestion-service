@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "name": "RawTransactionIngestionEvent",
+  "namespace": "com.poda.produce.schema",
+  "doc": "Event representing RawTransaction being produced.",
+  "fields": [
+    { "name": "rawTransactionId", "type": "string" },
+    { "name": "sourceSystem", "type": "string" },
+    { "name": "sourceEventType", "type": "string" },
+
+    {
+      "name": "amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 18,
+        "scale": 2
+      }
+    },
+
+    { "name": "currency", "type": "string", "default": "USD" },
+    { "name": "accountId", "type": "string" },
+    { "name": "counterpartyAccountId", "type": "string" },
+
+    {
+      "name": "eventTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "ingestionTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+
+    { "name": "rawPayload", "type": "string" },
+
+    { "name": "partition", "type": ["null", "int"], "default": null },
+
+    { "name": "offset", "type": ["null", "long"], "default": null },
+
+    { "name": "correlationId", "type": "string" },
+    { "name": "eventId", "type": "string" }
+  ]
+}

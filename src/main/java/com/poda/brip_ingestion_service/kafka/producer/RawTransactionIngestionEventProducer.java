@@ -1,6 +1,6 @@
 package com.poda.brip_ingestion_service.kafka.producer;
 
-import com.poda.brip_ingestion_service.events.RawTransactionIngestionEvent;
+import com.poda.produce.schema.RawTransactionIngestionEvent;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
