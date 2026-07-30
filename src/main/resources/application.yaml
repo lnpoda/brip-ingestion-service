@@ -52,8 +52,8 @@ spring:
             url: "http://localhost:8081"
     consumer:
       bootstrap-servers: localhost:7092,localhost:8094,localhost:9092
-      key-serializer: "org.apache.kafka.common.serialization.StringDeserializer"
-      value-serializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
       group-id: "brip-ingestion-cg"
       properties:
         specific:
@@ -86,3 +86,6 @@ upstream:
   corebanking:
     topic: "corebanking-events"
     concurrency: 2
+downstream:
+  raw-transaction-ingestion-topic:
+    topic: "transaction-ingestion-topic"
