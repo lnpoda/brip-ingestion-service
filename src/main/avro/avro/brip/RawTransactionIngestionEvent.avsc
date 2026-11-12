@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "RawTransactionIngestionEvent",
-  "namespace": "com.poda.produce.schema",
+  "namespace": "com.poda.brip.schema",
   "doc": "Event representing RawTransaction being produced.",
   "fields": [
     { "name": "rawTransactionId", "type": "string" },
