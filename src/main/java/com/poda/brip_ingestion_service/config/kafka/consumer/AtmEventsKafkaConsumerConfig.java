@@ -41,6 +41,6 @@ public class AtmEventsKafkaConsumerConfig {
     @Bean("AtmEventsProducerFactory")
     public ProducerFactory<String, Object> producerFactory() {
 
-        return baseKafkaConsumerConfig.getOrCreateProducerFactory();
+        return baseKafkaConsumerConfig.getOrCreateBaseDltProducerFactory();
     }
 }

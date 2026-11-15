@@ -60,13 +60,13 @@ public class BaseKafkaConsumerConfig {
 
     public KafkaTemplate<String, Object> getOrCreateBaseDltKafkaTemplate(ProducerFactory<String, Object> producerFactory) {
         if (dltKafkaTemplate == null) {
-            dltKafkaTemplate = new KafkaTemplate<>(producerFactory);;
+            dltKafkaTemplate = new KafkaTemplate<>(producerFactory);
         }
 
         return dltKafkaTemplate;
     }
 
-    public ProducerFactory<String, Object> getOrCreateProducerFactory() {
+    public ProducerFactory<String, Object> getOrCreateBaseDltProducerFactory() {
 
         if (producerFactory == null) {
             Map<String, Object> config = kafkaProperties.buildProducerProperties();
