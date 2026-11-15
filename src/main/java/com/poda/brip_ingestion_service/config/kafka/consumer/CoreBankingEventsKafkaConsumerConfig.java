@@ -36,6 +36,6 @@ public class CoreBankingEventsKafkaConsumerConfig {
 
     @Bean(name = "CoreBankingEventsProducerFactory")
     public ProducerFactory<String, Object> producerFactory() {
-        return baseKafkaConsumerConfig.getOrCreateProducerFactory();
+        return baseKafkaConsumerConfig.getOrCreateBaseDltProducerFactory();
     }
 }
